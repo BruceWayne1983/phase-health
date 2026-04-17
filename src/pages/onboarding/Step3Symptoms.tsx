@@ -61,7 +61,7 @@ const Step3Symptoms = () => {
             <span className="text-text-dim text-[12px]">{entries.length} selected</span>
             <button
               onClick={handleNext}
-              className="flex items-center gap-2 bg-gold hover:bg-gold-bright transition-colors text-background font-medium rounded-sm px-6 py-3 text-[14px]"
+              className="btn-primary text-[14px]"
             >
               Continue <ChevronRight size={16} />
             </button>
@@ -80,13 +80,13 @@ const Step3Symptoms = () => {
               onClick={() => setActiveCategory(c)}
               className={`flex-shrink-0 rounded-sm px-3 py-1.5 text-[13px] font-medium transition-all ${
                 active
-                  ? "bg-gold text-background"
+                  ? "bg-rose-deep text-cream"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {c}
               {count > 0 && (
-                <span className={`ml-2 ${active ? "text-background/60" : "text-gold"}`}>
+                <span className={`ml-2 ${active ? "text-cream/70" : "text-rose-deep"}`}>
                   {count}
                 </span>
               )}

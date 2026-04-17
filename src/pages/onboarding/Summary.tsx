@@ -77,7 +77,7 @@ const Summary = () => {
           </span>
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 bg-gold hover:bg-gold-bright transition-colors text-background font-medium rounded-sm px-6 py-3 text-[14px] ml-auto"
+            className="btn-primary text-[14px] ml-auto"
           >
             Continue <ChevronRight size={16} />
           </button>
