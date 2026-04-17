@@ -1,15 +1,42 @@
+import logoImage from "@/assets/anadya-logo.jpeg";
+
 interface WordmarkProps {
   size?: "sm" | "md" | "lg";
+  variant?: "full" | "text-only" | "mark-only";
   className?: string;
 }
 
 /**
- * Anadya wordmark: ornamental gold rule above the name in Cormorant.
+ * Anadya wordmark. Uses the master brand logo asset for full / mark variants.
+ * The text-only variant is a typographic fallback for small contexts (nav, mobile headers).
  */
-export const Wordmark = ({ size = "md", className = "" }: WordmarkProps) => {
+export const Wordmark = ({ size = "md", variant = "text-only", className = "" }: WordmarkProps) => {
+  const heights: Record<NonNullable<WordmarkProps["size"]>, string> = {
+    sm: "h-10",
+    md: "h-16",
+    lg: "h-28",
+  };
   const textSize =
-    size === "sm" ? "text-base" : size === "lg" ? "text-3xl" : "text-xl";
-  const tracking = size === "lg" ? "tracking-[0.32em]" : "tracking-[0.38em]";
+    size === "sm" ? "text-base" : size === "lg" ? "text-4xl" : "text-2xl";
+  const tracking = size === "lg" ? "tracking-[0.28em]" : "tracking-[0.36em]";
+
+  if (variant === "full" || variant === "mark-only") {
+    return (
+      <div className={`inline-flex items-center justify-center ${className}`}>
+        <img
+          src={logoImage}
+          alt="Anadya"
+          className={`${heights[size]} w-auto object-contain select-none`}
+          width={1024}
+          height={1024}
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    );
+  }
+
+  // text-only fallback, still ornamented
   return (
     <div className={`flex flex-col items-start gap-2 ${className}`}>
       <div className="flex items-center gap-2 text-gold">

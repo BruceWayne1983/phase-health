@@ -80,13 +80,13 @@ const Step3Symptoms = () => {
               onClick={() => setActiveCategory(c)}
               className={`flex-shrink-0 rounded-sm px-3 py-1.5 text-[13px] font-medium transition-all ${
                 active
-                  ? "bg-rose-deep text-cream"
+                  ? "bg-gold text-cream"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {c}
               {count > 0 && (
-                <span className={`ml-2 ${active ? "text-cream/70" : "text-rose-deep"}`}>
+                <span className={`ml-2 ${active ? "text-cream/80" : "text-gold-deep"}`}>
                   {count}
                 </span>
               )}
@@ -102,7 +102,7 @@ const Step3Symptoms = () => {
             <div
               key={s.id}
               className={`rounded-sm border transition-all ${
-                selected ? "border-gold bg-surface" : "border-border bg-surface/50"
+                selected ? "border-gold bg-gold-soft" : "border-border bg-surface/50"
               }`}
             >
               <button
@@ -119,7 +119,7 @@ const Step3Symptoms = () => {
                 >
                   {selected && (
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path d="M1 5l3 3 5-7" stroke="hsl(var(--background))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M1 5l3 3 5-7" stroke="hsl(var(--cream))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   )}
                 </span>
@@ -128,7 +128,7 @@ const Step3Symptoms = () => {
                 <div className="px-5 pb-4 pt-1 animate-fade-in">
                   <div className="flex items-center justify-between mb-2">
                     <span className="eyebrow">Severity</span>
-                    <span className="font-serif text-gold text-base tabular-nums">
+                    <span className="font-serif text-gold-deep text-base tabular-nums">
                       {severityOf(s.id)}/10
                     </span>
                   </div>

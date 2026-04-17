@@ -53,7 +53,7 @@ const Step4Goals = () => {
               type="button"
               onClick={() => toggle(g.id)}
               className={`text-left rounded-sm border px-4 py-3.5 transition-all flex items-center justify-between ${
-                isOn ? "border-gold bg-surface" : "border-border bg-surface/50 hover:bg-surface"
+                isOn ? "border-gold bg-gold-soft" : "border-border bg-surface/50 hover:bg-surface"
               }`}
             >
               <span className="text-foreground text-[14px]">{g.label}</span>

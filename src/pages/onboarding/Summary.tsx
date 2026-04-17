@@ -11,27 +11,27 @@ import {
 } from "@/lib/onboarding";
 import { SYMPTOMS } from "@/data/symptoms";
 
-const MODE_COPY: Record<AppMode, { label: string; title: string; description: string; phaseColorVar: string }> = {
+const MODE_COPY: Record<AppMode, { label: string; title: string; description: string; accentVar: string }> = {
   cycle: {
     label: "Cycle Mode",
     title: "We'll track every phase of your cycle",
     description:
       "Daily logging, phase-specific supplements, and education that actually understands your hormones. We'll watch for any signs of perimenopause and let you know if your stage shifts.",
-    phaseColorVar: "var(--phase-follicular)",
+    accentVar: "var(--gold-bright)",
   },
   transition: {
     label: "Transition Mode",
     title: "We'll guide you through perimenopause",
     description:
       "Symptom tracking across 34 menopause symptoms, bloods upload with AI interpretation, and a supplement protocol built for this stage of life. No guesswork.",
-    phaseColorVar: "var(--phase-luteal)",
+    accentVar: "var(--gold)",
   },
   post_meno: {
     label: "Post-Menopause Mode",
     title: "Long-term healthspan, optimised",
     description:
       "The transition is behind you. We focus on bone, brain, metabolic, and skin health for the decades ahead. Bloods-led, evidence-based.",
-    phaseColorVar: "var(--phase-menstrual)",
+    accentVar: "var(--gold-deep)",
   },
 };
 
@@ -90,9 +90,9 @@ const Summary = () => {
           <span
             aria-hidden
             className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: `hsl(${copy.phaseColorVar})` }}
+            style={{ backgroundColor: `hsl(${copy.accentVar})` }}
           />
-          <span className="eyebrow text-gold">{copy.label}</span>
+          <span className="eyebrow text-gold-deep">{copy.label}</span>
         </div>
         <h2 className="font-serif text-2xl text-foreground leading-tight mb-3">{copy.title}</h2>
         <p className="text-muted-foreground text-[14px] leading-relaxed">{copy.description}</p>

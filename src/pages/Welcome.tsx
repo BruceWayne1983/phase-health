@@ -1,36 +1,47 @@
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Wordmark } from "@/components/Wordmark";
-import { FloralCorner, Laurel, OrnamentDivider } from "@/components/Ornaments";
-import heroGoddess from "@/assets/hero-goddess.jpg";
-import botanicalSprig from "@/assets/botanical-sprig.png";
+import { GoldRule, HormoneCurve, OrnamentDivider } from "@/components/Ornaments";
 
 const PROMISES = [
-  { title: "Clinical depth", body: "Cycle tracking that goes beyond predictions — phase-aware insights, symptom mapping, and trend analysis." },
-  { title: "Bloods, understood", body: "Upload your panels. We translate them into language you can act on." },
-  { title: "Personal protocols", body: "Supplement and lifestyle guidance tuned to your hormones, your phase, your life." },
-  { title: "Privacy, always", body: "Your data is yours. We never sell it. Encrypted at rest, deletable at will." },
+  {
+    title: "Clinical depth",
+    body: "Cycle tracking that goes beyond prediction. Phase-aware insight, symptom correlation, trend analysis.",
+  },
+  {
+    title: "Bloods, decoded",
+    body: "Upload your panels, we translate the numbers into action. Trended over time, always in context.",
+  },
+  {
+    title: "Protocols, personal",
+    body: "Supplement and lifestyle guidance generated from your actual data, never a generic template.",
+  },
+  {
+    title: "Privacy, absolute",
+    body: "Medical-grade encryption. No data sold, ever. Delete anything at any time.",
+  },
 ];
 
 const Welcome = () => {
   return (
     <div className="min-h-[100dvh] w-full relative overflow-hidden">
-      {/* Decorative corner florals */}
-      <div className="pointer-events-none absolute -top-10 -left-10 w-72 h-72 text-gold/40 hidden md:block">
-        <FloralCorner className="w-full h-full" />
-      </div>
-      <div className="pointer-events-none absolute -bottom-16 -right-16 w-80 h-80 text-gold/30 hidden md:block">
-        <FloralCorner className="w-full h-full" flip />
-      </div>
-      {/* Soft rose halo */}
-      <div className="pointer-events-none absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full bg-rose-soft/40 blur-3xl -translate-y-1/2 translate-x-1/3" aria-hidden />
-      <div className="pointer-events-none absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-gold/10 blur-3xl translate-y-1/3 -translate-x-1/4" aria-hidden />
+      {/* Soft gold halos, ivory atmosphere */}
+      <div
+        className="pointer-events-none absolute top-1/4 right-0 w-[640px] h-[640px] rounded-full blur-3xl -translate-y-1/3 translate-x-1/3"
+        style={{ background: "hsl(var(--gold-soft) / 0.7)" }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 w-[520px] h-[520px] rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"
+        style={{ background: "hsl(var(--gold) / 0.12)" }}
+        aria-hidden
+      />
 
       {/* Header */}
       <header className="relative z-10 px-6 md:px-12 lg:px-20 pt-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Wordmark size="sm" />
-          <span className="hidden md:block eyebrow">Hormone health · Every phase</span>
+          <Wordmark size="sm" variant="text-only" />
+          <span className="hidden md:block eyebrow">Hormone health, every phase.</span>
         </div>
       </header>
 
@@ -39,11 +50,11 @@ const Welcome = () => {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
           {/* Left — copy */}
           <div className="animate-fade-up">
-            <p className="eyebrow mb-6">She who rises</p>
+            <p className="eyebrow mb-6">Hormone health, every phase.</p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-[88px] leading-[0.95] text-foreground tracking-tight">
               Your body,
               <br />
-              <span className="italic font-serif text-rose-deep">understood.</span>
+              <span className="italic font-serif text-gold">understood.</span>
             </h1>
 
             <div className="mt-8 max-w-md">
@@ -51,7 +62,7 @@ const Welcome = () => {
             </div>
 
             <p className="mt-8 text-muted-foreground text-lg lg:text-xl leading-relaxed max-w-lg font-light">
-              One sanctuary for every phase of your hormonal life — from your first cycle, through transition, long past your last.
+              Clinical-grade tracking. Your bloods, decoded. Supplement protocols tuned to you. Built for every phase of your hormonal life.
             </p>
 
             <ul className="mt-12 grid sm:grid-cols-2 gap-x-8 gap-y-6 max-w-2xl">
@@ -68,58 +79,37 @@ const Welcome = () => {
 
             <div className="mt-12 flex flex-col sm:flex-row sm:items-center gap-5">
               <Link to="/onboarding/age" className="btn-primary group text-base px-8 py-4">
-                <span>Begin your ritual</span>
+                <span>Begin</span>
                 <ChevronRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <p className="text-text-dim text-xs sm:text-sm">
-                Three quiet minutes.<br className="hidden sm:block" /> A few honest questions.
+                Takes 3 minutes.<br className="hidden sm:block" /> Uses what you tell us.
               </p>
             </div>
           </div>
 
-          {/* Right — goddess imagery, full-bleed feel */}
+          {/* Right — framed logo plate, treated like an editorial ad */}
           <div className="relative animate-fade-in order-first lg:order-last">
-            <div className="relative aspect-[3/4] lg:aspect-[4/5] rounded-sm overflow-hidden card-elevated">
-              <img
-                src={heroGoddess}
-                alt="Anadya — she who rises"
-                className="w-full h-full object-cover"
-                width={1080}
-                height={1920}
-              />
-              {/* Soft veil */}
-              <div className="absolute inset-0 bg-gradient-to-t from-cream/50 via-transparent to-cream/20" />
+            <div className="relative aspect-[3/4] lg:aspect-[4/5] rounded-sm overflow-hidden card-elevated bg-cream flex items-center justify-center p-8 lg:p-12">
+              <Wordmark variant="full" size="lg" className="scale-110" />
+
+              {/* Subtle hormone curve as editorial backdrop */}
+              <div
+                className="absolute inset-x-6 bottom-6 text-gold pointer-events-none"
+                style={{ opacity: 0.18 }}
+                aria-hidden
+              >
+                <HormoneCurve className="w-full h-auto" />
+              </div>
+
               {/* Caption plate */}
-              <div className="absolute bottom-6 left-6 right-6 glass-card rounded-sm px-5 py-4 flex items-center gap-4">
-                <Laurel className="w-12 h-4 text-gold flex-shrink-0" />
-                <div>
-                  <p className="eyebrow text-[9px]">Anadyomene · ἀναδυομένη</p>
-                  <p className="font-serif italic text-foreground/90 text-sm leading-snug mt-0.5">
-                    "She who rises from the water."
-                  </p>
-                </div>
+              <div className="absolute bottom-6 left-6 right-6 glass-card rounded-sm px-5 py-4">
+                <div className="text-gold mb-2"><GoldRule /></div>
+                <p className="font-serif italic text-foreground/90 text-sm leading-snug text-center">
+                  A new standard for women's health.
+                </p>
               </div>
             </div>
-
-            {/* Floating botanical sprig */}
-            <img
-              src={botanicalSprig}
-              alt=""
-              aria-hidden
-              loading="lazy"
-              className="hidden md:block absolute -top-10 -right-10 w-32 lg:w-40 opacity-90 rotate-12 pointer-events-none"
-              width={1024}
-              height={1536}
-            />
-            <img
-              src={botanicalSprig}
-              alt=""
-              aria-hidden
-              loading="lazy"
-              className="hidden md:block absolute -bottom-12 -left-12 w-28 lg:w-36 opacity-70 -rotate-[160deg] pointer-events-none"
-              width={1024}
-              height={1536}
-            />
           </div>
         </div>
       </main>
@@ -127,8 +117,8 @@ const Welcome = () => {
       {/* Footer band */}
       <footer className="relative z-10 px-6 md:px-12 lg:px-20 pb-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 border-t border-border-soft">
-          <p className="eyebrow">Anadya · 2026</p>
-          <p className="text-text-dim text-xs">Privacy-first. Encrypted. Yours.</p>
+          <p className="eyebrow">Anadya · Hormone health · 2026</p>
+          <p className="text-text-dim text-xs">Privacy first. Encrypted. Yours.</p>
         </div>
       </footer>
     </div>

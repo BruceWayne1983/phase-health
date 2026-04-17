@@ -35,7 +35,7 @@ const Step1Age = () => {
     <StepShell
       step={1}
       totalSteps={5}
-      eyebrow="About you"
+      eyebrow="Tell us about you"
       title="Where are you right now?"
       subtitle="Your age and life stage shape everything we recommend. We'll fine-tune as we learn more."
       footer={
@@ -80,7 +80,7 @@ const Step1Age = () => {
               onClick={() => setStage(s.id)}
               className={`w-full text-left rounded-sm border px-5 py-4 transition-all ${
                 selected
-                  ? "border-gold bg-surface"
+                  ? "border-gold bg-gold-soft"
                   : "border-border bg-surface/50 hover:bg-surface hover:border-border/80"
               }`}
             >
