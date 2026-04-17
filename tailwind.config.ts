@@ -12,15 +12,17 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ["Georgia", "Times New Roman", "serif"],
+        serif: ["Cormorant Garamond", "Georgia", "Times New Roman", "serif"],
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
+        "border-soft": "hsl(var(--border-soft))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        cream: "hsl(var(--cream))",
         surface: {
           DEFAULT: "hsl(var(--surface))",
           2: "hsl(var(--surface-2))",
@@ -29,6 +31,11 @@ export default {
           DEFAULT: "hsl(var(--gold))",
           bright: "hsl(var(--gold-bright))",
           dim: "hsl(var(--gold-dim))",
+        },
+        rose: {
+          DEFAULT: "hsl(var(--rose))",
+          deep: "hsl(var(--rose-deep))",
+          soft: "hsl(var(--rose-soft))",
         },
         "text-dim": "hsl(var(--text-dim))",
         phase: {

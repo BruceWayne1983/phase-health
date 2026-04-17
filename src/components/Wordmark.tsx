@@ -4,21 +4,26 @@ interface WordmarkProps {
 }
 
 /**
- * Anadya wordmark: a 2x24 gold bar above the name, set in Georgia.
- * No icon mark in v1 per brand spec.
+ * Anadya wordmark: ornamental gold rule above the name in Cormorant.
  */
 export const Wordmark = ({ size = "md", className = "" }: WordmarkProps) => {
   const textSize =
-    size === "sm" ? "text-lg" : size === "lg" ? "text-3xl" : "text-xl";
-  const tracking = size === "lg" ? "tracking-[0.18em]" : "tracking-[0.22em]";
+    size === "sm" ? "text-base" : size === "lg" ? "text-3xl" : "text-xl";
+  const tracking = size === "lg" ? "tracking-[0.32em]" : "tracking-[0.38em]";
   return (
     <div className={`flex flex-col items-start gap-2 ${className}`}>
-      <span className="gold-bar" aria-hidden />
+      <div className="flex items-center gap-2 text-gold">
+        <span className="gold-bar" aria-hidden />
+        <svg width="6" height="6" viewBox="0 0 6 6" aria-hidden>
+          <circle cx="3" cy="3" r="1.2" fill="currentColor" />
+        </svg>
+        <span className="gold-bar" aria-hidden />
+      </div>
       <span
-        className={`font-serif ${textSize} ${tracking} text-foreground`}
+        className={`font-serif ${textSize} ${tracking} text-foreground uppercase`}
         style={{ fontWeight: 400 }}
       >
-        ANADYA
+        Anadya
       </span>
     </div>
   );

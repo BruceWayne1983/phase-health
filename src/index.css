@@ -1,68 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Anadya — clinical-premium female hormone health platform.
-   All colors HSL. No pastels. Dark base, gold accent, Georgia + Inter. */
+/* Anadya — Goddess Minimalism.
+   Dusty rose, champagne, ivory, soft gold. Cormorant Garamond + Inter.
+   All colors HSL. Light, airy, premium spa. */
 
 @layer base {
   :root {
-    /* Surfaces */
-    --background: 240 6% 4%;          /* #0A0A0B near-black */
-    --surface: 240 5% 9%;             /* #141416 elevated card */
-    --surface-2: 240 5% 11%;          /* #1A1A1D sub-card */
-    --border: 240 4% 17%;             /* #2A2A2E subtle line */
+    /* Surfaces — ivory & champagne */
+    --background: 36 40% 96%;          /* #FBF6EE warm ivory */
+    --surface: 32 45% 93%;             /* #F5EBDD champagne card */
+    --surface-2: 28 40% 89%;           /* #ECDFCC sub-card */
+    --cream: 36 50% 97%;               /* near-white cream */
+    --border: 28 25% 82%;              /* #DCCDB7 soft beige line */
+    --border-soft: 28 30% 88%;
 
-    /* Brand gold */
-    --gold: 41 47% 58%;               /* #C9A961 primary accent */
-    --gold-bright: 41 50% 66%;        /* #D4B87A */
-    --gold-dim: 41 38% 39%;           /* #8B7340 */
+    /* Brand — soft gold + dusty rose */
+    --gold: 36 45% 54%;                /* #C8A867 antique gold */
+    --gold-bright: 38 52% 64%;         /* #D9B97D */
+    --gold-dim: 36 30% 42%;            /* #8C7549 */
+    --rose: 8 45% 68%;                 /* #D89384 dusty rose */
+    --rose-deep: 354 35% 50%;          /* #A85A5F burgundy rose */
+    --rose-soft: 12 55% 85%;           /* #F2CFC4 blush */
 
-    /* Text */
-    --foreground: 0 0% 96%;           /* #F5F5F5 */
-    --muted-foreground: 240 3% 67%;   /* #A8A8AD */
-    --text-dim: 240 3% 43%;           /* #6B6B70 */
+    /* Text — warm dark */
+    --foreground: 25 25% 18%;          /* #3A2E25 warm espresso */
+    --muted-foreground: 25 12% 38%;    /* #6B5E55 */
+    --text-dim: 25 8% 55%;             /* #918579 */
 
-    /* Phase colours (cycle tracking) */
-    --phase-menstrual: 0 68% 33%;     /* #8B1A1A deep red */
-    --phase-follicular: 41 47% 58%;   /* gold */
-    --phase-ovulatory: 41 50% 66%;    /* bright gold */
-    --phase-luteal: 213 43% 30%;      /* #2C4A6E clinical blue */
+    /* Phase colours (cycle tracking) — feminine palette */
+    --phase-menstrual: 354 45% 55%;    /* dusty wine */
+    --phase-follicular: 36 45% 60%;    /* warm gold */
+    --phase-ovulatory: 8 55% 72%;      /* coral rose */
+    --phase-luteal: 270 20% 55%;       /* mauve */
 
     /* States */
-    --success: 152 41% 30%;           /* #2D6B4F */
-    --warning: 41 38% 39%;            /* #8B7340 */
-    --destructive: 0 68% 38%;
-    --destructive-foreground: 0 0% 96%;
+    --success: 152 30% 42%;
+    --warning: 36 50% 50%;
+    --destructive: 354 50% 50%;
+    --destructive-foreground: 36 50% 97%;
 
     /* shadcn semantic mappings */
     --card: var(--surface);
     --card-foreground: var(--foreground);
-    --popover: var(--surface);
+    --popover: var(--cream);
     --popover-foreground: var(--foreground);
-    --primary: var(--gold);
-    --primary-foreground: 240 6% 4%;
+    --primary: var(--rose-deep);
+    --primary-foreground: 36 50% 97%;
     --secondary: var(--surface-2);
     --secondary-foreground: var(--foreground);
     --muted: var(--surface-2);
-    --accent: var(--surface-2);
+    --accent: var(--rose-soft);
     --accent-foreground: var(--foreground);
     --input: var(--border);
     --ring: var(--gold);
 
-    --radius: 0.25rem;
+    --radius: 0.125rem;
 
     /* Typography */
-    --font-serif: Georgia, 'Times New Roman', serif;
+    --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-    /* Sidebar (unused but required by shadcn) */
+    /* Gradients & atmosphere */
+    --gradient-dawn: radial-gradient(120% 80% at 80% 0%, hsl(var(--rose-soft) / 0.55) 0%, transparent 55%),
+                     radial-gradient(100% 70% at 0% 100%, hsl(var(--gold) / 0.18) 0%, transparent 50%),
+                     linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--surface)) 100%);
+    --gradient-veil: linear-gradient(180deg, hsl(var(--cream) / 0.85) 0%, hsl(var(--surface) / 0.95) 100%);
+    --shadow-soft: 0 30px 80px -40px hsl(25 30% 25% / 0.18), 0 8px 24px -12px hsl(25 30% 25% / 0.08);
+    --shadow-card: 0 1px 0 hsl(var(--cream)) inset, 0 24px 60px -30px hsl(25 30% 25% / 0.15);
+
+    /* Sidebar */
     --sidebar-background: var(--surface);
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--gold);
-    --sidebar-primary-foreground: 240 6% 4%;
+    --sidebar-primary-foreground: var(--cream);
     --sidebar-accent: var(--surface-2);
     --sidebar-accent-foreground: var(--foreground);
     --sidebar-border: var(--border);
@@ -82,36 +96,68 @@
   }
   body {
     min-height: 100vh;
+    background: var(--gradient-dawn);
+    background-attachment: fixed;
   }
   ::selection {
-    background: hsl(var(--gold) / 0.3);
+    background: hsl(var(--rose) / 0.35);
     color: hsl(var(--foreground));
   }
 }
 
 @layer components {
-  .font-serif { font-family: var(--font-serif); }
+  .font-serif { font-family: var(--font-serif); font-weight: 400; }
+  .font-display { font-family: var(--font-serif); font-weight: 300; letter-spacing: -0.01em; }
 
   .eyebrow {
     @apply uppercase text-text-dim;
     font-size: 11px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.22em;
     font-weight: 500;
   }
 
   .gold-bar {
-    @apply block bg-gold;
-    width: 24px;
-    height: 2px;
+    @apply block;
+    background: linear-gradient(90deg, hsl(var(--gold-dim)), hsl(var(--gold-bright)), hsl(var(--gold-dim)));
+    width: 28px;
+    height: 1px;
   }
 
   .card-elevated {
-    @apply bg-surface border border-border rounded-sm;
+    @apply bg-cream border border-border-soft rounded-sm;
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass-card {
+    background: hsl(var(--cream) / 0.78);
+    backdrop-filter: blur(20px) saturate(1.1);
+    -webkit-backdrop-filter: blur(20px) saturate(1.1);
+    border: 1px solid hsl(var(--cream) / 0.9);
+    box-shadow: var(--shadow-soft);
   }
 
   .input-clinical {
-    @apply w-full bg-surface-2 border border-border rounded-sm px-4 py-3 text-foreground
-           placeholder:text-text-dim focus:outline-none focus:border-gold transition-colors;
+    @apply w-full bg-cream border border-border rounded-sm px-4 py-3 text-foreground
+           placeholder:text-text-dim focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-all;
     font-family: var(--font-sans);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm px-6 py-3 font-medium transition-all;
+    background: linear-gradient(180deg, hsl(var(--rose-deep)), hsl(354 35% 44%));
+    color: hsl(var(--cream));
+    box-shadow: 0 8px 24px -10px hsl(var(--rose-deep) / 0.5);
+  }
+  .btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
+  .btn-primary:disabled { background: hsl(var(--surface-2)); color: hsl(var(--text-dim)); box-shadow: none; transform: none; cursor: not-allowed; }
+
+  .ornament-divider {
+    display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    color: hsl(var(--gold));
+  }
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: ""; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--gold) / 0.5), transparent);
   }
 }

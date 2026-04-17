@@ -49,7 +49,7 @@ const Step1Age = () => {
           <button
             disabled={!canContinue}
             onClick={handleNext}
-            className="flex items-center gap-2 bg-gold disabled:bg-surface-2 disabled:text-text-dim hover:bg-gold-bright transition-colors text-background font-medium rounded-sm px-6 py-3 text-[14px]"
+            className="btn-primary text-[14px]"
           >
             Continue <ChevronRight size={16} />
           </button>
