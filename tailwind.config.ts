@@ -30,7 +30,8 @@ export default {
         gold: {
           DEFAULT: "hsl(var(--gold))",
           bright: "hsl(var(--gold-bright))",
-          dim: "hsl(var(--gold-dim))",
+          deep: "hsl(var(--gold-deep))",
+          soft: "hsl(var(--gold-soft))",
         },
         rose: {
           DEFAULT: "hsl(var(--rose))",
