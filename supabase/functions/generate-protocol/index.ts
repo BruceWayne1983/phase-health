@@ -64,7 +64,7 @@ const ProtocolOutputSchema = z.object({
     .array(
       z.object({
         slug: z.string(),
-        reason: z.string().min(10).max(200),
+        reason: z.string().min(10).max(400),
       }),
     )
     .min(2)
