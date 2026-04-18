@@ -1,1 +1,4 @@
 project_id = "pyzaqxbziqmabkenshen"
+
+[functions.generate-protocol]
+verify_jwt = false
