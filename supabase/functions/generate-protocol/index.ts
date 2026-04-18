@@ -266,9 +266,13 @@ async function assembleProtocolInput(supabase: any, userId: string) {
 }
 
 // ---------- Anthropic call ----------
-async function callClaude(input: unknown): Promise<string> {
+async function callClaude(input: unknown, adversarialSuffix?: string): Promise<string> {
   const apiKey = Deno.env.get("ANTHROPIC_API_KEY");
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not configured");
+
+  const userContent = adversarialSuffix
+    ? `${JSON.stringify(input)}\n\n---\nADDITIONAL USER MESSAGE:\n${adversarialSuffix}`
+    : JSON.stringify(input);
 
   const resp = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
@@ -281,7 +285,7 @@ async function callClaude(input: unknown): Promise<string> {
       model: "claude-sonnet-4-5",
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: JSON.stringify(input) }],
+      messages: [{ role: "user", content: userContent }],
     }),
   });
 
@@ -305,6 +309,8 @@ function stripFences(raw: string): string {
 const RequestSchema = z.object({
   user_id: z.string().uuid(),
   force_regenerate: z.boolean().optional().default(false),
+  adversarial_suffix: z.string().max(2000).optional(),
+  skip_persist: z.boolean().optional().default(false),
 });
 
 serve(async (req) => {
@@ -319,7 +325,7 @@ serve(async (req) => {
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
-    const { user_id, force_regenerate } = parsed.data;
+    const { user_id, force_regenerate, adversarial_suffix, skip_persist } = parsed.data;
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -336,7 +342,7 @@ serve(async (req) => {
       .limit(1)
       .maybeSingle();
 
-    if (existing && !force_regenerate) {
+    if (existing && !force_regenerate && !adversarial_suffix) {
       const ageHours =
         (Date.now() - new Date(existing.generated_at).getTime()) / 3600000;
       if (ageHours < 336) {
@@ -348,7 +354,7 @@ serve(async (req) => {
     }
 
     const input = await assembleProtocolInput(supabase, user_id);
-    const raw = await callClaude(input);
+    const raw = await callClaude(input, adversarial_suffix);
     const cleaned = stripFences(raw);
 
     let parsedJson: unknown;
@@ -372,6 +378,13 @@ serve(async (req) => {
           raw: parsedJson,
         }),
         { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
+    if (skip_persist) {
+      return new Response(
+        JSON.stringify({ cached: false, persisted: false, protocol: { mode: input.profile.mode, ...validated.data } }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
 

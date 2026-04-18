@@ -11,6 +11,7 @@ import Step3Symptoms from "./pages/onboarding/Step3Symptoms";
 import Step4Goals from "./pages/onboarding/Step4Goals";
 import Summary from "./pages/onboarding/Summary";
 import ProtocolDemo from "./pages/ProtocolDemo";
+import ProtocolRedTeam from "./pages/ProtocolRedTeam";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/onboarding/goals" element={<Step4Goals />} />
           <Route path="/onboarding/summary" element={<Summary />} />
           <Route path="/dev/protocol" element={<ProtocolDemo />} />
+          <Route path="/dev/protocol/redteam" element={<ProtocolRedTeam />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
