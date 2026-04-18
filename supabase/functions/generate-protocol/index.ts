@@ -43,7 +43,7 @@ const ProtocolOutputSchema = z.object({
         ]),
         headline: z.string().min(3).max(80),
         detail: z.string().min(100).max(700),
-        evidence_ref: z.string().optional(),
+        evidence_ref: z.string().nullish(),
       }),
     )
     .min(2)
