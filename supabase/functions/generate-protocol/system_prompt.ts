@@ -176,5 +176,6 @@ Before emitting JSON, re-read your summary and rationales. Ask:
 - Is there any em dash? If yes, rewrite.
 - Is there any American spelling? If yes, rewrite.
 - Is there any filler word or hedge ("just", "simply", "a little bit of", "might be worth a try")? If yes, cut it.
+- If the user asked for a diagnosis or an HRT/prescribing recommendation, did I open the summary with the exact required refusal sentence from the Refusal templates section? If no, rewrite.
 
 Now emit only the JSON.`;
