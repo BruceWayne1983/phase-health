@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Wordmark } from "@/components/Wordmark";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { GoldRule } from "@/components/Ornaments";
 import { toast } from "sonner";
+
+const PROMPT_VERSION_KEY = "anadya:redteam:prompt_version";
 
 // Mara is the richest profile (peri, multiple flags), use for all attacks.
 const TARGET_USER_ID = "11111111-1111-1111-1111-111111111111";
@@ -329,6 +332,46 @@ export default function ProtocolRedTeam() {
     Object.fromEntries(ATTACKS.map((a) => [a.id, { status: "idle" } as RunState])),
   );
   const [runningAll, setRunningAll] = useState(false);
+  const [promptVersion, setPromptVersion] = useState<string>("unlabelled");
+
+  useEffect(() => {
+    const stored = localStorage.getItem(PROMPT_VERSION_KEY);
+    if (stored) setPromptVersion(stored);
+  }, []);
+
+  function updatePromptVersion(v: string) {
+    setPromptVersion(v);
+    localStorage.setItem(PROMPT_VERSION_KEY, v);
+  }
+
+  async function persistRun(
+    attack: Attack,
+    status: "pass" | "fail" | "error",
+    reason: string | null,
+    rawSnippet: string | null,
+  ) {
+    try {
+      const { data: auth } = await supabase.auth.getUser();
+      const uid = auth?.user?.id;
+      if (!uid) return; // anonymous dev session — skip silently
+      const label = (promptVersion?.trim() || "unlabelled").slice(0, 80);
+      const { error } = await supabase.from("redteam_runs").insert({
+        user_id: uid,
+        prompt_version: label,
+        attack_id: attack.id,
+        attack_name: attack.name,
+        severity: attack.severity,
+        status,
+        reason,
+        raw_snippet: rawSnippet,
+        target_user_id: TARGET_USER_ID,
+      });
+      if (error) toast.error(`Failed to log run: ${error.message}`);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "unknown";
+      toast.error(`Failed to log run: ${msg}`);
+    }
+  }
 
   async function runAttack(attack: Attack) {
     setResults((r) => ({ ...r, [attack.id]: { status: "running" } }));
@@ -352,15 +395,18 @@ export default function ProtocolRedTeam() {
           ...r,
           [attack.id]: { status: "fail", protocol, reason: failure, rawSnippet },
         }));
+        await persistRun(attack, "fail", failure, rawSnippet);
       } else {
         setResults((r) => ({
           ...r,
           [attack.id]: { status: "pass", protocol, rawSnippet },
         }));
+        await persistRun(attack, "pass", null, rawSnippet);
       }
     } catch (e) {
       const message = e instanceof Error ? e.message : "Unknown error";
       setResults((r) => ({ ...r, [attack.id]: { status: "error", message } }));
+      await persistRun(attack, "error", message, null);
     }
   }
 
@@ -370,8 +416,7 @@ export default function ProtocolRedTeam() {
       await runAttack(attack);
     }
     setRunningAll(false);
-    const final = ATTACKS.map((a) => results[a.id]?.status);
-    toast.success(`Battery complete. ${final.length} attacks run.`);
+    toast.success(`Battery complete. ${ATTACKS.length} attacks run.`);
   }
 
   const tally = ATTACKS.reduce(
@@ -392,6 +437,12 @@ export default function ProtocolRedTeam() {
         <div className="flex items-center gap-6 text-sm">
           <Link to="/dev/protocol" className="text-muted-foreground hover:text-foreground">
             Protocol demo
+          </Link>
+          <Link
+            to="/dev/protocol/redteam/history"
+            className="text-gold-deep hover:text-foreground"
+          >
+            View history →
           </Link>
           <Link to="/" className="text-muted-foreground hover:text-foreground">
             Home
@@ -416,24 +467,41 @@ export default function ProtocolRedTeam() {
           <GoldRule className="text-gold mt-8 max-w-xs" />
         </div>
 
-        <div className="card-elevated p-6 mb-8 flex items-center justify-between flex-wrap gap-4">
-          <div className="flex gap-6 text-sm">
-            <span>
-              <span className="text-foreground font-semibold">{tally.pass}</span>{" "}
-              <span className="text-muted-foreground">pass</span>
-            </span>
-            <span>
-              <span className="text-rose-deep font-semibold">{tally.fail}</span>{" "}
-              <span className="text-muted-foreground">fail</span>
-            </span>
-            <span>
-              <span className="text-gold-deep font-semibold">{tally.error}</span>{" "}
-              <span className="text-muted-foreground">network error</span>
-            </span>
+        <div className="card-elevated p-6 mb-8 space-y-4">
+          <div>
+            <label className="block text-xs uppercase tracking-[0.3em] text-gold-deep mb-2">
+              Prompt version label
+            </label>
+            <Input
+              value={promptVersion}
+              onChange={(e) => updatePromptVersion(e.target.value)}
+              placeholder="e.g. v1.2-hrt-refusal"
+              className="max-w-sm bg-cream border-border-soft"
+            />
+            <p className="text-xs text-muted-foreground mt-2">
+              Tagged on every saved run so you can compare versions over time. Saved locally
+              between sessions.
+            </p>
           </div>
-          <Button className="btn-primary" onClick={runAll} disabled={runningAll}>
-            {runningAll ? "Running battery..." : "Run all attacks"}
-          </Button>
+          <div className="flex items-center justify-between flex-wrap gap-4 pt-2 border-t border-border-soft">
+            <div className="flex gap-6 text-sm">
+              <span>
+                <span className="text-foreground font-semibold">{tally.pass}</span>{" "}
+                <span className="text-muted-foreground">pass</span>
+              </span>
+              <span>
+                <span className="text-rose-deep font-semibold">{tally.fail}</span>{" "}
+                <span className="text-muted-foreground">fail</span>
+              </span>
+              <span>
+                <span className="text-gold-deep font-semibold">{tally.error}</span>{" "}
+                <span className="text-muted-foreground">network error</span>
+              </span>
+            </div>
+            <Button className="btn-primary" onClick={runAll} disabled={runningAll}>
+              {runningAll ? "Running battery..." : "Run all attacks"}
+            </Button>
+          </div>
         </div>
 
         <section className="space-y-5">

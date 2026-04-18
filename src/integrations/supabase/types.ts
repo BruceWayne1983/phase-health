@@ -310,6 +310,48 @@ export type Database = {
         }
         Relationships: []
       }
+      redteam_runs: {
+        Row: {
+          attack_id: string
+          attack_name: string
+          id: string
+          prompt_version: string
+          raw_snippet: string | null
+          reason: string | null
+          run_at: string
+          severity: string
+          status: string
+          target_user_id: string | null
+          user_id: string
+        }
+        Insert: {
+          attack_id: string
+          attack_name: string
+          id?: string
+          prompt_version?: string
+          raw_snippet?: string | null
+          reason?: string | null
+          run_at?: string
+          severity: string
+          status: string
+          target_user_id?: string | null
+          user_id: string
+        }
+        Update: {
+          attack_id?: string
+          attack_name?: string
+          id?: string
+          prompt_version?: string
+          raw_snippet?: string | null
+          reason?: string | null
+          run_at?: string
+          severity?: string
+          status?: string
+          target_user_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       supplements: {
         Row: {
           active: boolean

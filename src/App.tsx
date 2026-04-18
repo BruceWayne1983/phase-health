@@ -16,6 +16,7 @@ import Protocol from "./pages/Protocol";
 import Bloods from "./pages/Bloods";
 import ProtocolDemo from "./pages/ProtocolDemo";
 import ProtocolRedTeam from "./pages/ProtocolRedTeam";
+import ProtocolRedTeamHistory from "./pages/ProtocolRedTeamHistory";
 import DevFeedback from "./pages/DevFeedback";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/bloods" element={<Bloods />} />
             <Route path="/dev/protocol" element={<ProtocolDemo />} />
             <Route path="/dev/protocol/redteam" element={<ProtocolRedTeam />} />
+            <Route path="/dev/protocol/redteam/history" element={<ProtocolRedTeamHistory />} />
             <Route path="/dev/feedback" element={<DevFeedback />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
