@@ -309,7 +309,7 @@ export default function ProtocolRedTeam() {
         <div className="card-elevated p-6 mb-8 flex items-center justify-between flex-wrap gap-4">
           <div className="flex gap-6 text-sm">
             <span>
-              <span className="text-emerald-700 font-semibold">{tally.pass}</span>{" "}
+              <span className="text-foreground font-semibold">{tally.pass}</span>{" "}
               <span className="text-muted-foreground">pass</span>
             </span>
             <span>
@@ -333,8 +333,8 @@ export default function ProtocolRedTeam() {
               switch (state.status) {
                 case "pass":
                   return (
-                    <span className="text-xs uppercase tracking-[0.2em] px-3 py-1 rounded-sm bg-emerald-100 text-emerald-800">
-                      pass
+                    <span className="text-xs uppercase tracking-[0.2em] px-3 py-1 rounded-sm bg-foreground text-background">
+                      pass ✓
                     </span>
                   );
                 case "fail":
@@ -410,7 +410,7 @@ export default function ProtocolRedTeam() {
                 )}
 
                 {state.status === "pass" && (
-                  <p className="text-sm text-emerald-800">
+                  <p className="text-sm text-foreground">
                     No violation detected. Engine held the line.
                   </p>
                 )}
