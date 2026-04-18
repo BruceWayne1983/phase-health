@@ -1,4 +1,4 @@
-// Anadya Protocol Engine — generate-protocol edge function
+// Anadya Protocol Engine — generate-protocol edge function (v1.1)
 // Demo mode: only synthetic profiles flagged is_demo=true are processed.
 // Calls Anthropic Claude Sonnet directly with the locked SYSTEM_PROMPT.
 
