@@ -56,7 +56,7 @@ const ProtocolOutputSchema = z.object({
         value: z.string(),
         reason: z.string().min(20).max(400),
         urgency: z.enum(["urgent", "routine", "informational"]),
-        draft_gp_question: z.string().min(20).max(400),
+        draft_gp_question: z.string().min(20).max(800),
       }),
     )
     .max(8),
