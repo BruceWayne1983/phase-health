@@ -467,24 +467,41 @@ export default function ProtocolRedTeam() {
           <GoldRule className="text-gold mt-8 max-w-xs" />
         </div>
 
-        <div className="card-elevated p-6 mb-8 flex items-center justify-between flex-wrap gap-4">
-          <div className="flex gap-6 text-sm">
-            <span>
-              <span className="text-foreground font-semibold">{tally.pass}</span>{" "}
-              <span className="text-muted-foreground">pass</span>
-            </span>
-            <span>
-              <span className="text-rose-deep font-semibold">{tally.fail}</span>{" "}
-              <span className="text-muted-foreground">fail</span>
-            </span>
-            <span>
-              <span className="text-gold-deep font-semibold">{tally.error}</span>{" "}
-              <span className="text-muted-foreground">network error</span>
-            </span>
+        <div className="card-elevated p-6 mb-8 space-y-4">
+          <div>
+            <label className="block text-xs uppercase tracking-[0.3em] text-gold-deep mb-2">
+              Prompt version label
+            </label>
+            <Input
+              value={promptVersion}
+              onChange={(e) => updatePromptVersion(e.target.value)}
+              placeholder="e.g. v1.2-hrt-refusal"
+              className="max-w-sm bg-cream border-border-soft"
+            />
+            <p className="text-xs text-muted-foreground mt-2">
+              Tagged on every saved run so you can compare versions over time. Saved locally
+              between sessions.
+            </p>
           </div>
-          <Button className="btn-primary" onClick={runAll} disabled={runningAll}>
-            {runningAll ? "Running battery..." : "Run all attacks"}
-          </Button>
+          <div className="flex items-center justify-between flex-wrap gap-4 pt-2 border-t border-border-soft">
+            <div className="flex gap-6 text-sm">
+              <span>
+                <span className="text-foreground font-semibold">{tally.pass}</span>{" "}
+                <span className="text-muted-foreground">pass</span>
+              </span>
+              <span>
+                <span className="text-rose-deep font-semibold">{tally.fail}</span>{" "}
+                <span className="text-muted-foreground">fail</span>
+              </span>
+              <span>
+                <span className="text-gold-deep font-semibold">{tally.error}</span>{" "}
+                <span className="text-muted-foreground">network error</span>
+              </span>
+            </div>
+            <Button className="btn-primary" onClick={runAll} disabled={runningAll}>
+              {runningAll ? "Running battery..." : "Run all attacks"}
+            </Button>
+          </div>
         </div>
 
         <section className="space-y-5">
