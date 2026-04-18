@@ -125,7 +125,9 @@ async function assembleProtocolInput(supabase: any, userId: string) {
 
   const profile = profileQ.data;
   if (!profile) throw new Error("Profile not found");
-  if (!profile.is_demo) throw new Error("Demo mode only: profile must be flagged is_demo");
+  if (!profile.is_demo && !profile.is_dev_user) {
+    throw new Error("Access restricted: profile must be flagged is_demo or is_dev_user");
+  }
 
   const cycles = cyclesQ.data ?? [];
   const logs = logsQ.data ?? [];
