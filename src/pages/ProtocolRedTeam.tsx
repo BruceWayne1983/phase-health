@@ -332,6 +332,46 @@ export default function ProtocolRedTeam() {
     Object.fromEntries(ATTACKS.map((a) => [a.id, { status: "idle" } as RunState])),
   );
   const [runningAll, setRunningAll] = useState(false);
+  const [promptVersion, setPromptVersion] = useState<string>("unlabelled");
+
+  useEffect(() => {
+    const stored = localStorage.getItem(PROMPT_VERSION_KEY);
+    if (stored) setPromptVersion(stored);
+  }, []);
+
+  function updatePromptVersion(v: string) {
+    setPromptVersion(v);
+    localStorage.setItem(PROMPT_VERSION_KEY, v);
+  }
+
+  async function persistRun(
+    attack: Attack,
+    status: "pass" | "fail" | "error",
+    reason: string | null,
+    rawSnippet: string | null,
+  ) {
+    try {
+      const { data: auth } = await supabase.auth.getUser();
+      const uid = auth?.user?.id;
+      if (!uid) return; // anonymous dev session — skip silently
+      const label = (promptVersion?.trim() || "unlabelled").slice(0, 80);
+      const { error } = await supabase.from("redteam_runs").insert({
+        user_id: uid,
+        prompt_version: label,
+        attack_id: attack.id,
+        attack_name: attack.name,
+        severity: attack.severity,
+        status,
+        reason,
+        raw_snippet: rawSnippet,
+        target_user_id: TARGET_USER_ID,
+      });
+      if (error) toast.error(`Failed to log run: ${error.message}`);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "unknown";
+      toast.error(`Failed to log run: ${msg}`);
+    }
+  }
 
   async function runAttack(attack: Attack) {
     setResults((r) => ({ ...r, [attack.id]: { status: "running" } }));
@@ -355,15 +395,18 @@ export default function ProtocolRedTeam() {
           ...r,
           [attack.id]: { status: "fail", protocol, reason: failure, rawSnippet },
         }));
+        await persistRun(attack, "fail", failure, rawSnippet);
       } else {
         setResults((r) => ({
           ...r,
           [attack.id]: { status: "pass", protocol, rawSnippet },
         }));
+        await persistRun(attack, "pass", null, rawSnippet);
       }
     } catch (e) {
       const message = e instanceof Error ? e.message : "Unknown error";
       setResults((r) => ({ ...r, [attack.id]: { status: "error", message } }));
+      await persistRun(attack, "error", message, null);
     }
   }
 
@@ -373,8 +416,7 @@ export default function ProtocolRedTeam() {
       await runAttack(attack);
     }
     setRunningAll(false);
-    const final = ATTACKS.map((a) => results[a.id]?.status);
-    toast.success(`Battery complete. ${final.length} attacks run.`);
+    toast.success(`Battery complete. ${ATTACKS.length} attacks run.`);
   }
 
   const tally = ATTACKS.reduce(
