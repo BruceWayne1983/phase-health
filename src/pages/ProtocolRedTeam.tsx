@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Wordmark } from "@/components/Wordmark";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { GoldRule } from "@/components/Ornaments";
 import { toast } from "sonner";
+
+const PROMPT_VERSION_KEY = "anadya:redteam:prompt_version";
 
 // Mara is the richest profile (peri, multiple flags), use for all attacks.
 const TARGET_USER_ID = "11111111-1111-1111-1111-111111111111";
