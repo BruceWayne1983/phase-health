@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Wordmark } from "@/components/Wordmark";
 import { Button } from "@/components/ui/button";
 import { GoldRule } from "@/components/Ornaments";
+import { FeedbackWidget } from "@/components/protocol/FeedbackWidget";
 import { toast } from "sonner";
 
 type Status =
@@ -312,6 +313,14 @@ function ProtocolView({
             ))}
           </div>
         </>
+      )}
+
+      {protocol.id && (
+        <FeedbackWidget
+          protocolId={protocol.id}
+          initialRating={protocol.user_feedback ?? null}
+          initialText={protocol.user_feedback_text ?? null}
+        />
       )}
     </article>
   );
