@@ -217,6 +217,7 @@ export type Database = {
           hrt_details: Json | null
           id: string
           is_demo: boolean
+          is_dev_user: boolean
           mode: string | null
           mode_set_manually: boolean
           on_hormonal_contraception: boolean
@@ -232,6 +233,7 @@ export type Database = {
           hrt_details?: Json | null
           id?: string
           is_demo?: boolean
+          is_dev_user?: boolean
           mode?: string | null
           mode_set_manually?: boolean
           on_hormonal_contraception?: boolean
@@ -247,6 +249,7 @@ export type Database = {
           hrt_details?: Json | null
           id?: string
           is_demo?: boolean
+          is_dev_user?: boolean
           mode?: string | null
           mode_set_manually?: boolean
           on_hormonal_contraception?: boolean
