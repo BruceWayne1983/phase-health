@@ -1,4 +1,4 @@
-// Anadya Protocol Engine — generate-protocol edge function
+// Anadya Protocol Engine — generate-protocol edge function (v1.1)
 // Demo mode: only synthetic profiles flagged is_demo=true are processed.
 // Calls Anthropic Claude Sonnet directly with the locked SYSTEM_PROMPT.
 
@@ -43,7 +43,7 @@ const ProtocolOutputSchema = z.object({
         ]),
         headline: z.string().min(3).max(80),
         detail: z.string().min(100).max(700),
-        evidence_ref: z.string().optional(),
+        evidence_ref: z.string().nullish(),
       }),
     )
     .min(2)
@@ -64,7 +64,7 @@ const ProtocolOutputSchema = z.object({
     .array(
       z.object({
         slug: z.string(),
-        reason: z.string().min(10).max(200),
+        reason: z.string().min(10).max(400),
       }),
     )
     .min(2)
