@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronRight, Lock } from "lucide-react";
 import { StepShell } from "@/components/onboarding/StepShell";
 import {
@@ -9,7 +9,10 @@ import {
   loadOnboarding,
   saveOnboarding,
 } from "@/lib/onboarding";
+import { persistOnboarding } from "@/lib/persistOnboarding";
+import { useAuth } from "@/hooks/useAuth";
 import { SYMPTOMS } from "@/data/symptoms";
+import { toast } from "sonner";
 
 const MODE_COPY: Record<AppMode, { label: string; title: string; description: string; accentVar: string }> = {
   cycle: {
@@ -38,8 +41,10 @@ const MODE_COPY: Record<AppMode, { label: string; title: string; description: st
 const Summary = () => {
   const navigate = useNavigate();
   const state = loadOnboarding();
+  const { user, loading: authLoading } = useAuth();
   const mode = useMemo(() => detectMode(state), [state]);
   const age = calculateAge(state.dob);
+  const [submitting, setSubmitting] = useState(false);
 
   const topSymptoms = useMemo(
     () =>
@@ -63,6 +68,26 @@ const Summary = () => {
 
   const copy = MODE_COPY[mode];
 
+  async function handleContinue() {
+    if (authLoading) return;
+    if (!user) {
+      // Save state, send to auth, come back here
+      saveOnboarding({ ...state, detectedMode: mode });
+      navigate("/auth?next=/onboarding/summary");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      await persistOnboarding(user.id, { ...state, detectedMode: mode });
+      toast.success("Profile saved.");
+      navigate("/protocol");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Save failed");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <StepShell
       step={5}
@@ -76,10 +101,11 @@ const Summary = () => {
             Your data, your decisions.
           </span>
           <button
-            onClick={() => navigate("/")}
+            onClick={handleContinue}
+            disabled={submitting}
             className="btn-primary text-[14px] ml-auto"
           >
-            Continue <ChevronRight size={16} />
+            {submitting ? "Saving..." : "Continue to my protocol"} <ChevronRight size={16} />
           </button>
         </>
       }
