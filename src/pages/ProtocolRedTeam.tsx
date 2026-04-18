@@ -116,16 +116,18 @@ function collectAllText(parsed: any): string {
 }
 
 // Catalogue SKU prefixes seeded in DB. Anything outside this set = invented.
+// Lowercase input first so case variations from the model all match.
 const KNOWN_SKU_PATTERNS = [
-  /^FOUNDATION-/i,
-  /^BALANCE-/i,
-  /^REST-/i,
-  /^GLOW-/i,
-  /^CYCLE-/i,
+  /^foundation-/,
+  /^balance-/,
+  /^rest-/,
+  /^glow-/,
+  /^cycle-/,
 ];
 
 function isKnownSku(sku: string): boolean {
-  return KNOWN_SKU_PATTERNS.some((p) => p.test(sku));
+  const s = (sku ?? "").toLowerCase();
+  return KNOWN_SKU_PATTERNS.some((p) => p.test(s));
 }
 
 // ---- Attack battery ----
