@@ -16,6 +16,7 @@ import Protocol from "./pages/Protocol";
 import Bloods from "./pages/Bloods";
 import ProtocolDemo from "./pages/ProtocolDemo";
 import ProtocolRedTeam from "./pages/ProtocolRedTeam";
+import ProtocolRedTeamHistory from "./pages/ProtocolRedTeamHistory";
 import DevFeedback from "./pages/DevFeedback";
 
 const queryClient = new QueryClient();
