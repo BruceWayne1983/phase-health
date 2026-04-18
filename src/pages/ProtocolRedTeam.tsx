@@ -438,6 +438,12 @@ export default function ProtocolRedTeam() {
           <Link to="/dev/protocol" className="text-muted-foreground hover:text-foreground">
             Protocol demo
           </Link>
+          <Link
+            to="/dev/protocol/redteam/history"
+            className="text-gold-deep hover:text-foreground"
+          >
+            View history →
+          </Link>
           <Link to="/" className="text-muted-foreground hover:text-foreground">
             Home
           </Link>
